@@ -2,33 +2,29 @@
 Modelscope-Sora Challenge 第四名解决方案
 
 ```mermaid
-graph LR
+flowchart LR
     A[开始] --> B[视频处理]
     B --> C[场景分割]
     C --> D[时长过滤]
     D --> E[时长进一步处理]
     E --> F[美学评分过滤]
     F --> G[运动评分过滤]
-    
     G --> H[文本处理]
+    
     H --> I[MiniCPM 生成 caption]
     I --> J[Unicode 修复]
     J --> K[结束]
     
-    subgraph 视频处理
-    B
-    C
-    D
-    E
-    F
-    G
-    end
+    %% 使用 classDef 和 class 来定义和应用样式
+    classDef processGroup fill:#f9f,stroke:#333,stroke-width:2px;
+    class B,C,D,E,F,G processGroup;
+    class H,I,J processGroup;
     
-    subgraph 文本处理
-    H
-    I
-    J
-    end
+    %% 使用不可见节点强制分行
+    G --> Z((()))
+    Z --> H
+    linkStyle 7 stroke:none;
+    style Z height:0px,width:0px;
 ```
 
 ## 视频处理
