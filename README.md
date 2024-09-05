@@ -2,7 +2,7 @@
 Modelscope-Sora Challenge 第四名解决方案
 
 ```mermaid
-graph TD
+graph LR
     A[开始] --> B[视频处理]
     B --> C[场景分割]
     C --> D[时长过滤]
