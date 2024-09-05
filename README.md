@@ -1,35 +1,8 @@
 # Modelscope-Sora
 Modelscope-Sora Challenge 第四名解决方案
 
-```mermaid
-graph LR
-    A[开始] --> B[视频处理]
-    B --> C[场景分割]
-    C --> D[时长过滤]
-    D --> E[时长进一步处理]
-    E --> F[美学评分过滤]
-    F --> G[运动评分过滤]
-    
-    G --> H[文本处理]
-    H --> I[MiniCPM 生成 caption]
-    I --> J[Unicode 修复]
-    J --> K[结束]
-    
-    subgraph 视频处理
-    B
-    C
-    D
-    E
-    F
-    G
-    end
-    
-    subgraph 文本处理
-    H
-    I
-    J
-    end
-```
+![Modelscope-Sora Challenge](./src/modelscope-sora.png)
+主要思路是先对视频进行处理，包括场景分割，时长过滤，美学评分过滤，运动评分过滤；然后对视频的描述进行生成，先使用MiniCPM 用指定prompt生成 caption，然后进行Unicode修复，单词重复过滤，然后进行训练。
 
 ## 视频处理
 ### 1.1 场景分割
