@@ -23,6 +23,7 @@ Modelscope-Sora Challenge 第四名解决方案
 ## 文本处理
 ### 2.1 MiniCPM 生成 caption
 使用 MiniCPM-V-2_6 模型为视频生成描述。
+代码借鉴自 https://huggingface.co/openbmb/MiniCPM-V-2_6
 
 ### 2.2 Unicode 修复
 修复文本中的 Unicode 错误,删除重复的句子,并过滤单词重复比例超出特定范围的文本。
