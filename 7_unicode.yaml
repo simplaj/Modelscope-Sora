@@ -1,0 +1,53 @@
+# 全局参数
+project_name: 'unicode'
+dataset_path: '/home/tzh/Project/dj_sora_challenge/output/processed_data/cpm_data.jsonl'
+export_path: '/home/tzh/Project/dj_sora_challenge/output/processed_data/unicode_cpm_data.jsonl'
+export_shard_size: 0
+export_in_parallel: true
+np: 4
+text_keys: 'text'
+suffixes: []
+use_cache: true
+ds_cache_dir: null
+use_checkpoint: false
+temp_dir: null
+open_tracer: true
+op_list_to_trace: []
+trace_num: 10
+op_fusion: false
+cache_compress: null
+keep_stats_in_res_ds: false
+keep_hashes_in_res_ds: false
+
+# 多模态数据处理
+image_key: 'images'
+image_special_token: '<__dj__image>'
+audio_key: 'audios'
+audio_special_token: '<__dj__audio>'
+video_key: 'videos'
+video_special_token: '<__dj__video>'
+eoc_special_token: '<|__dj__eoc|>'
+
+# 分布式处理
+executor_type: default
+ray_address: auto
+
+# 数据分析
+percentiles: [0.25, 0.5, 0.75]
+export_original_dataset: false
+save_stats_in_one_file: false
+
+# 处理流程
+process:
+  - fix_unicode_mapper:                                     # 修复文本中的Unicode错误。
+  - remove_repeat_sentences_mapper:                         # 从文本样本中删除重复的句子。
+      lowercase: false                                      # 是否将样本文本转换为小写
+      ignore_special_character: true                        # 判断重复句子时是否忽略特殊字符。特殊字符是指除中文字符、字母和数字外的所有字符
+      min_repeat_sentence_length: 2  
+
+  - word_repetition_filter:                                 # 过滤单词重复比例超出特定范围的文本
+      lang: en                                              # 样本语言
+      tokenization: false                                   # 是否使用模型标记文档
+      rep_len: 10                                           # 单词级n-gram的重复长度
+      min_ratio: 0.0                                        # 过滤范围的最小比例
+      max_ratio: 0.2                                        # 过滤范围的最大比例

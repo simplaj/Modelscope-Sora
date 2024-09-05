@@ -1,0 +1,46 @@
+# 全局参数
+project_name: 'scene_split'
+dataset_path: '/home/tzh/Project/dj_sora_challenge/output/processed_data/unicoed_processed_data.jsonl'
+export_path: '/home/tzh/Project/dj_sora_challenge/output/processed_data/sence_data.jsonl'
+export_shard_size: 0
+export_in_parallel: true
+np: 1
+text_keys: 'text'
+suffixes: []
+use_cache: true
+ds_cache_dir: null
+use_checkpoint: false
+temp_dir: null
+open_tracer: false
+op_list_to_trace: []
+trace_num: 10
+op_fusion: false
+cache_compress: null
+keep_stats_in_res_ds: false
+keep_hashes_in_res_ds: false
+
+# 多模态数据处理
+image_key: 'images'
+image_special_token: '<__dj__image>'
+audio_key: 'audios'
+audio_special_token: '<__dj__audio>'
+video_key: 'videos'
+video_special_token: '<__dj__video>'
+eoc_special_token: '<|__dj__eoc|>'
+
+# 分布式处理
+executor_type: default
+ray_address: auto
+
+# 数据分析
+percentiles: [0.25, 0.5, 0.75]
+export_original_dataset: false
+save_stats_in_one_file: false
+
+# 处理流程
+process:
+  - video_split_by_scene_mapper:                            # 将视频拆分为场景剪辑
+      detector: 'ContentDetector'                           # PySceneDetect场景检测器。应为['ContentDetector', 'ThresholdDetector', 'AdaptiveDetector`]
+      threshold: 27.0                                       # 传递给检测器的阈值
+      min_scene_len: 15                                     # 最短场景长度
+      show_progress: false      

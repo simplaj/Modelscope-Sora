@@ -1,0 +1,50 @@
+# 全局参数
+project_name: 'aes_filter'
+dataset_path: '/home/tzh/Project/dj_sora_challenge/output/processed_data/duration_pro_data.jsonl'
+export_path: '/home/tzh/Project/dj_sora_challenge/output/processed_data/aes_data.jsonl'
+export_shard_size: 0
+export_in_parallel: true
+np: 8
+text_keys: 'text'
+suffixes: []
+use_cache: true
+ds_cache_dir: null
+use_checkpoint: false
+temp_dir: null
+open_tracer: false
+op_list_to_trace: []
+trace_num: 10
+op_fusion: false
+cache_compress: null
+keep_stats_in_res_ds: false
+keep_hashes_in_res_ds: false
+
+# 多模态数据处理
+image_key: 'images'
+image_special_token: '<__dj__image>'
+audio_key: 'audios'
+audio_special_token: '<__dj__audio>'
+video_key: 'videos'
+video_special_token: '<__dj__video>'
+eoc_special_token: '<|__dj__eoc|>'
+
+# 分布式处理
+executor_type: default
+ray_address: auto
+
+# 数据分析
+percentiles: [0.25, 0.5, 0.75]
+export_original_dataset: false
+save_stats_in_one_file: false
+
+# 处理流程
+process:
+  - video_aesthetics_filter:                                # 根据从视频中提取的帧图像的美学评分过滤样本。
+      hf_scorer_model: shunk031/aesthetics-predictor-v2-sac-logos-ava1-l14-linearMSE # 美学评分预测器的Huggingface模型名称
+      min_score: 0.3                                        # 过滤范围的最小美学评分
+      max_score: 1.0                                        # 过滤范围的最大美学评分
+      frame_sampling_method: 'uniform'                      # 从视频中提取帧图像的采样方法。应为["all_keyframe", "uniform"]之一。前者提取所有关键帧，后者从视频中均匀提取指定数量的帧。默认："uniform"，frame_num=3，考虑到关键帧的数量可能很大，而它们在美学方面的差异通常很小。
+      frame_num: 3                                          # 从视频中均匀提取帧的数量。仅在frame_sampling_method为"uniform"时有效。如果为1，则仅提取中间帧。如果为2，则仅提取第一个和最后一个帧。如果大于2，除了第一个和最后一个帧，还将在视频持续时间内均匀提取其他帧。
+      reduce_mode: avg                                      # 对视频中提取的所有帧的归约模式，必须是['avg','max', 'min']之一。
+      any_or_all: any                                       # 当任意/所有图像符合过滤条件时保留此样本
+      mem_required: '40GB'     

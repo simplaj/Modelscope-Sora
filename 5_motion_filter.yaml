@@ -1,0 +1,46 @@
+# 全局参数
+project_name: 'motion_filter'
+dataset_path: '/home/tzh/Project/dj_sora_challenge/output/processed_data/aes_data.jsonl'
+export_path: '/home/tzh/Project/dj_sora_challenge/output/processed_data/motion_data.jsonl'
+export_shard_size: 0
+export_in_parallel: true
+np: 8
+text_keys: 'text'
+suffixes: []
+use_cache: true
+ds_cache_dir: null
+use_checkpoint: false
+temp_dir: null
+open_tracer: false
+op_list_to_trace: []
+trace_num: 10
+op_fusion: false
+cache_compress: null
+keep_stats_in_res_ds: false
+keep_hashes_in_res_ds: false
+
+# 多模态数据处理
+image_key: 'images'
+image_special_token: '<__dj__image>'
+audio_key: 'audios'
+audio_special_token: '<__dj__audio>'
+video_key: 'videos'
+video_special_token: '<__dj__video>'
+eoc_special_token: '<|__dj__eoc|>'
+
+# 分布式处理
+executor_type: default
+ray_address: auto
+
+# 数据分析
+percentiles: [0.25, 0.5, 0.75]
+export_original_dataset: false
+save_stats_in_one_file: false
+
+# 处理流程
+process:
+  - video_motion_score_filter:                              # 保留视频运动分数在特定范围内的样本。
+      min_score: 0.25                                       # 保留样本的最小运动分数
+      max_score: 10000.0                                    # 保留样本的最大运动分数
+      sampling_fps: 2                                       # 用于计算光流的帧率
+      any_or_all: any        
