@@ -9,10 +9,26 @@ graph LR
     D --> E[时长进一步处理]
     E --> F[美学评分过滤]
     F --> G[运动评分过滤]
+    
     G --> H[文本处理]
     H --> I[MiniCPM 生成 caption]
     I --> J[Unicode 修复]
     J --> K[结束]
+    
+    subgraph 视频处理
+    B
+    C
+    D
+    E
+    F
+    G
+    end
+    
+    subgraph 文本处理
+    H
+    I
+    J
+    end
 ```
 
 ## 视频处理
