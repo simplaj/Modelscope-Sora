@@ -3,6 +3,7 @@ Modelscope-Sora Challenge 第四名解决方案
 
 ![Modelscope-Sora Challenge](./src/modelscope-sora.png)
 主要思路是先对视频进行处理，包括场景分割，时长过滤，美学评分过滤，运动评分过滤；然后对视频的描述进行生成，先使用MiniCPM 用指定prompt生成 caption，然后进行Unicode修复，单词重复过滤，然后进行训练。
+其中DataJuicer部分使用[Data-Juicer: A One-Stop Data Processing System for Large Language Models](https://github.com/modelscope/data-juicer)进行处理
 
 ## 视频处理
 ### 1.1 场景分割
