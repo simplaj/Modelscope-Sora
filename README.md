@@ -15,16 +15,11 @@ flowchart LR
     I --> J[Unicode 修复]
     J --> K[结束]
     
-    %% 使用 classDef 和 class 来定义和应用样式
-    classDef processGroup fill:#f9f,stroke:#333,stroke-width:2px;
-    class B,C,D,E,F,G processGroup;
-    class H,I,J processGroup;
-    
     %% 使用不可见节点强制分行
-    G --> Z((()))
+    G --> Z[ ]
     Z --> H
     linkStyle 7 stroke:none;
-    style Z height:0px,width:0px;
+    style Z height:0px,width:0px,fill:none;
 ```
 
 ## 视频处理
